@@ -3,5 +3,4 @@
 -- Add any additional options here
 vim.g.autoformat = false
 vim.opt.relativenumber = false
-vim.opt.wrap = true
 vim.o.background = "light"
