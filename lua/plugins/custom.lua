@@ -30,7 +30,7 @@ return {
         "#D1FF33",
         "#FF6633",
       },
-      search_key = "<leader>i"
+      search_key = "<leader>i",
     },
   },
   {
@@ -73,25 +73,6 @@ return {
     end,
   },
   {
-    "LintaoAmons/bookmarks.nvim",
-    -- backup your bookmark sqlite db when there are breaking changes (major version change)
-    dependencies = {
-      { "kkharji/sqlite.lua" },
-      { "nvim-telescope/telescope.nvim" }, -- currently has only telescopes supported, but PRs for other pickers are welcome
-      { "stevearc/dressing.nvim" }, -- optional: better UI
-    },
-    config = function()
-      local opts = {
-        picker = {
-          entry_display = function(bookmark, bookmarks)
-            return string.format("%s", bookmark.name)
-          end,
-        },
-      }
-      require("bookmarks").setup(opts) -- you must call setup to init sqlite db
-    end,
-  },
-  {
     "uga-rosa/translate.nvim",
     config = function()
       require("translate").setup({
@@ -101,5 +82,31 @@ return {
         },
       })
     end,
+  },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      picker = {
+        layout = {
+          layout = {
+            backdrop = false,
+            width = 0.85,
+            min_width = 80,
+            height = 0.85,
+            min_height = 20,
+            box = "vertical",
+            border = true,
+            title = "{title} {live} {flags}",
+            title_pos = "center",
+            { win = "input", height = 1, border = "bottom" },
+            { win = "list", border = "none" },
+            { win = "preview", title = "{preview}", height = 0.65, border = "top" },
+          },
+        },
+      },
+      bigfile = {
+        size = 30 * 1024 * 1024,
+      },
+    },
   },
 }

@@ -26,10 +26,5 @@ end, { noremap = true, silent = true, desc = "Copy File Path" })
 -- navi: go back to previous location in jump list
 map("n", "<C-q>", "<C-o>", { noremap = true, silent = true })
 
--- bookmark
-map("", "<leader>mm", ":BookmarksMark<CR>", { desc = "Mark current line", silent = true })
-map("", "<leader>mo", ":BookmarksGoto<CR>", { desc = "Go to BookmarkList", silent = true })
-map("", "<leader>mt", ":BookmarksTree<CR>", { desc = "Go to BookmarksTree", silent = true })
-
 -- 模式：n (普通模式) 翻译光标下的词；v (可视模式) 翻译选中的文本
 map({ "n", "v" }, "<leader>ct", "<cmd>Translate zh-CN<CR>", { silent = true })
