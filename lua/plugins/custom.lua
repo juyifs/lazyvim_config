@@ -87,20 +87,33 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
+        layouts = {
+          default_custom = {
+            layout = {
+              box = "horizontal",
+              width = 0.9,
+              min_width = 120,
+              height = 0.9,
+              {
+                box = "vertical",
+                border = true,
+                title = "{title} {live} {flags}",
+                { win = "input", height = 1, border = "bottom" },
+                { win = "list", border = "none" },
+              },
+              { win = "preview", title = "{preview}", border = true, width = 0.6 },
+            },
+          },
+        },
         layout = {
-          layout = {
-            backdrop = false,
-            width = 0.85,
-            min_width = 80,
-            height = 0.85,
-            min_height = 20,
-            box = "vertical",
-            border = true,
-            title = "{title} {live} {flags}",
-            title_pos = "center",
-            { win = "input", height = 1, border = "bottom" },
-            { win = "list", border = "none" },
-            { win = "preview", title = "{preview}", height = 0.65, border = "top" },
+          preset = "default_custom",
+        },
+        sources = {
+          lines = {
+            layout = {
+              preview = "preview",
+              preset = "default_custom",
+            },
           },
         },
       },
