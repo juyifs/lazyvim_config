@@ -116,6 +116,9 @@ return {
             },
           },
         },
+        preview = {
+          wrap = true, -- 开启预览窗口的自动换行
+        },
       },
       bigfile = {
         size = 30 * 1024 * 1024,

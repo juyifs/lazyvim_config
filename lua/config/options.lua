@@ -4,3 +4,6 @@
 vim.g.autoformat = false
 vim.opt.relativenumber = false
 vim.o.background = "light"
+vim.opt.wrap = true
+vim.opt.breakindent = true
+
