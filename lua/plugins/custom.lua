@@ -115,9 +115,12 @@ return {
               preset = "default_custom",
             },
           },
-        },
-        preview = {
-          wrap = true, -- 开启预览窗口的自动换行
+          files = {
+            layout = {
+              preview = "preview",
+              preset = "default_custom",
+            },
+          },
         },
       },
       bigfile = {
