@@ -28,3 +28,13 @@ map("n", "<C-q>", "<C-o>", { noremap = true, silent = true })
 
 -- 模式：n (普通模式) 翻译光标下的词；v (可视模式) 翻译选中的文本
 map({ "n", "v" }, "<leader>ct", "<cmd>Translate zh-CN<CR>", { silent = true })
+
+-- 映射 ma 为添加备注
+map('n', '<leader>ma', '<cmd>BookmarkAnnotate<CR>', { noremap = true, silent = true })
+-- 映射 ml 为打开备注列表
+map('n', '<leader>ml', function()
+    vim.cmd("BookmarkShowAll")
+    vim.cmd("cclose")
+    Snacks.picker.qflist()
+end, { desc = "书签备注列表" })
+

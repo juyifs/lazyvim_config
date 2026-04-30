@@ -128,4 +128,14 @@ return {
       },
     },
   },
+  {
+    "MattesGroeger/vim-bookmarks",
+    config = function()
+      -- 这里的配置可以根据需要修改图标或行为
+      vim.g.bookmark_sign = "🔖"
+      vim.g.bookmark_annotation_sign = "📝" -- 有备注的书签显示不同图标
+      vim.g.bookmark_save_per_working_dir = 1 -- 按项目保存书签
+      vim.g.bookmark_auto_save = 1
+    end,
+  },
 }
