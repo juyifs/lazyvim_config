@@ -64,15 +64,6 @@ return {
     end,
   },
   {
-    "lionyxml/gitlineage.nvim",
-    dependencies = {
-      "sindrets/diffview.nvim", -- optional, for open_diff feature
-    },
-    config = function()
-      require("gitlineage").setup()
-    end,
-  },
-  {
     "uga-rosa/translate.nvim",
     config = function()
       require("translate").setup({
@@ -137,5 +128,8 @@ return {
       vim.g.bookmark_save_per_working_dir = 1 -- 按项目保存书签
       vim.g.bookmark_auto_save = 1
     end,
+  },
+  {
+    "sindrets/diffview.nvim",
   },
 }

@@ -38,3 +38,8 @@ map('n', '<leader>ml', function()
     Snacks.picker.qflist()
 end, { desc = "书签备注列表" })
 
+-- DiffView
+map('n', '<leader>gd','<cmd>DiffviewOpen --imply-local<CR>',{desc = "当前目录Diff", silent = true, noremap = true})
+map('n', '<leader>gf','<cmd>DiffviewFileHistory % --imply-local<CR>',{desc = "当前文件历史", silent = true, noremap = true})
+map('n', '<leader>gF','<cmd>DiffviewFileHistory --imply-local<CR>',{desc = "当前目录历史", silent = true, noremap = true})
+map('v', '<leader>gl',':DiffviewFileHistory --imply-local<CR>',{desc = "选中行历史", silent = true, noremap = true})
