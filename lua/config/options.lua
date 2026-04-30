@@ -6,4 +6,10 @@ vim.opt.relativenumber = false
 vim.o.background = "light"
 vim.opt.wrap = true
 vim.opt.breakindent = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = false
+vim.opt.softtabstop=4
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 
