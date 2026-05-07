@@ -79,7 +79,23 @@ return {
     opts = {
       picker = {
         layouts = {
-          default_custom = {
+          vertical_custom = {
+            layout = {
+              box = "vertical",
+              width = 0.9,
+              min_width = 120,
+              height = 0.9,
+              { win = "preview", title = "{preview}", border = true, height = 0.7 },
+              {
+                box = "vertical",
+                border = true,
+                title = "{title} {live} {flags}",
+                { win = "input", height = 1, border = "bottom" },
+                { win = "list", border = "none" },
+              },
+            },
+          },
+          horizontal_custom = {
             layout = {
               box = "horizontal",
               width = 0.9,
@@ -97,19 +113,25 @@ return {
           },
         },
         layout = {
-          preset = "default_custom",
+          preset = "horizontal_custom",
         },
         sources = {
           lines = {
             layout = {
               preview = "preview",
-              preset = "default_custom",
+              preset = "horizontal_custom",
             },
           },
           files = {
             layout = {
               preview = "preview",
-              preset = "default_custom",
+              preset = "horizontal_custom",
+            },
+          },
+		  qflist = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
             },
           },
         },
