@@ -59,7 +59,7 @@ return {
     -- Optional; default configuration will be used if setup isn't called.
     config = function()
       require("everforest").setup({
-        background = "medium",
+        background = "soft",
       })
     end,
   },
@@ -128,7 +128,7 @@ return {
               preset = "horizontal_custom",
             },
           },
-		  qflist = {
+          qflist = {
             layout = {
               preview = "preview",
               preset = "vertical_custom",
@@ -153,5 +153,15 @@ return {
   },
   {
     "sindrets/diffview.nvim",
+  },
+  {
+    "soulis-1256/eagle.nvim",
+    opts = {
+      keyboard_mode = true,
+    },
+    config = function(_, opts)
+      require("eagle").setup(opts)
+      vim.o.mousemoveevent = true
+    end,
   },
 }

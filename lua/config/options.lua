@@ -3,7 +3,7 @@
 -- Add any additional options here
 vim.g.autoformat = false
 vim.opt.relativenumber = false
-vim.o.background = "dark"
+vim.o.background = "light"
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.tabstop = 4

@@ -43,3 +43,5 @@ map('n', '<leader>gc','<cmd>DiffviewOpen --imply-local<CR>',{desc = "当前目�
 map('n', '<leader>gp','<cmd>DiffviewFileHistory % --imply-local<CR>',{desc = "当前文件历史", silent = true, noremap = true})
 map('n', '<leader>gP','<cmd>DiffviewFileHistory --imply-local<CR>',{desc = "当前目录历史", silent = true, noremap = true})
 map('v', '<leader>gl',':DiffviewFileHistory --imply-local<CR>',{desc = "选中行历史", silent = true, noremap = true})
+
+map("n", "<Tab>", ":EagleWin<CR>", { noremap = true, silent = true })
