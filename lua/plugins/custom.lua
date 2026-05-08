@@ -158,10 +158,33 @@ return {
     "soulis-1256/eagle.nvim",
     opts = {
       keyboard_mode = true,
+      mouse_delay = 3000,
     },
     config = function(_, opts)
       require("eagle").setup(opts)
       vim.o.mousemoveevent = true
     end,
+  },
+  {
+    "nvimdev/lspsaga.nvim",
+    config = function()
+      require("lspsaga").setup({
+        symbol_in_winbar = { enable = false },
+        lightbulb = { enable = false },
+        callhierarchy = {
+          keys = {
+            toggle_or_req = "<Tab>",
+          },
+        },
+        ui = {
+          expand = "",
+          collapse = "",
+        },
+      })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
+    },
   },
 }

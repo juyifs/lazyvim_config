@@ -45,3 +45,7 @@ map('n', '<leader>gP','<cmd>DiffviewFileHistory --imply-local<CR>',{desc = "当�
 map('v', '<leader>gl',':DiffviewFileHistory --imply-local<CR>',{desc = "选中行历史", silent = true, noremap = true})
 
 map("n", "<Tab>", ":EagleWin<CR>", { noremap = true, silent = true })
+
+map("n", "<leader>ci", '<cmd>Lspsaga incoming_calls ++normal<CR>', { desc = "LSP Incoming Calls" })
+map("n", "<leader>co", '<cmd>Lspsaga outgoing_calls ++normal<CR>', { desc = "LSP Outgoing Calls" })
+map("n", "gp", '<cmd>Lspsaga peek_definition<CR>', { desc = "Peek Definition" })
