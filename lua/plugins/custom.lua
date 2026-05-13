@@ -155,36 +155,29 @@ return {
     "sindrets/diffview.nvim",
   },
   {
-    "soulis-1256/eagle.nvim",
+    "saghen/blink.cmp",
     opts = {
-      keyboard_mode = true,
-      mouse_delay = 3000,
+      completion = {
+        documentation = {
+          auto_show = false,
+        },
+      },
     },
-    config = function(_, opts)
-      require("eagle").setup(opts)
-      vim.o.mousemoveevent = true
-    end,
   },
   {
-    "nvimdev/lspsaga.nvim",
-    config = function()
-      require("lspsaga").setup({
-        symbol_in_winbar = { enable = false },
-        lightbulb = { enable = false },
-        callhierarchy = {
-          keys = {
-            toggle_or_req = "<Tab>",
-          },
-        },
-        ui = {
-          expand = "",
-          collapse = "",
-        },
-      })
-    end,
+    "jmacadie/telescope-hierarchy.nvim",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons", -- optional
+      {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+      },
     },
+    config = function(_, opts)
+      -- Calling telescope's setup from multiple specs does not hurt, it will happily merge the
+      -- configs for us. We won't use data, as everything is in it's own namespace (telescope
+      -- defaults, as well as each extension).
+      require("telescope").setup(opts)
+      require("telescope").load_extension("hierarchy")
+    end,
   },
 }
