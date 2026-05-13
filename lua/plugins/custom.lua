@@ -134,6 +134,55 @@ return {
               preset = "vertical_custom",
             },
           },
+          gh_diff = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+          git_diff = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+          git_files = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+          git_log = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+          git_log_file = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+          git_log_line = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+          git_stash = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+          git_status = {
+            layout = {
+              preview = "preview",
+              preset = "vertical_custom",
+            },
+          },
+
         },
       },
       bigfile = {
@@ -153,6 +202,14 @@ return {
   },
   {
     "sindrets/diffview.nvim",
+    opts = {
+      file_panel = {
+        win_config = {
+          position = "bottom", -- 将默认的 "left" 改为 "bottom"
+          height = 8, -- 变成底部面板后，建议使用 height 代替 width 控制高度
+        },
+      },
+    },
   },
   {
     "saghen/blink.cmp",
