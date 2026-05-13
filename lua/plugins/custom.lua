@@ -48,19 +48,17 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "everforest",
+      colorscheme = "jb",
     },
   },
   {
-    "neanias/everforest-nvim",
-    version = false,
+    "nickkadutskyi/jb.nvim",
     lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
+    priority = 1000, -- 确保优先加载
     config = function()
-      require("everforest").setup({
-        background = "soft",
-      })
+      vim.cmd("colorscheme jb") -- 默认开启
+      -- 如果需要透明背景，取消下一行的注释
+      -- require("jb").setup({ transparent = true })
     end,
   },
   {
