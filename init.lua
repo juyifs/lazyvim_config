@@ -14,3 +14,5 @@ vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { link = "FloatBorder" })
 vim.api.nvim_set_hl(0, "SnacksPickerListBorder", { link = "FloatBorder" })
 vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { link = "FloatBorder" })
 
+vim.api.nvim_set_hl(0, "WinSeparator", { link = FloatBorder })
+
