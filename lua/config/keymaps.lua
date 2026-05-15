@@ -30,20 +30,61 @@ map("n", "<C-q>", "<C-o>", { noremap = true, silent = true })
 map({ "n", "v" }, "<leader>ct", "<cmd>Translate zh-CN<CR>", { silent = true })
 
 -- 映射 ma 为添加备注
-map('n', '<leader>ma', '<cmd>BookmarkAnnotate<CR>', { noremap = true, silent = true })
+map("n", "<leader>ma", "<cmd>BookmarkAnnotate<CR>", { noremap = true, silent = true })
 -- 映射 ml 为打开备注列表
-map('n', '<leader>ml', function()
-    vim.cmd("BookmarkShowAll")
-    vim.cmd("cclose")
-    Snacks.picker.qflist()
+map("n", "<leader>ml", function()
+  vim.cmd("BookmarkShowAll")
+  vim.cmd("cclose")
+  Snacks.picker.qflist()
 end, { desc = "书签备注列表" })
 
 -- DiffView
-map('n', '<leader>gc','<cmd>DiffviewOpen HEAD --imply-local<CR>',{desc = "当前目录Diff", silent = true, noremap = true})
-map('n', '<leader>gp','<cmd>DiffviewFileHistory % --imply-local<CR>',{desc = "当前文件历史", silent = true, noremap = true})
-map('n', '<leader>gP','<cmd>DiffviewFileHistory --imply-local<CR>',{desc = "当前目录历史", silent = true, noremap = true})
+map(
+  "n",
+  "<leader>gc",
+  "<cmd>DiffviewOpen HEAD --imply-local<CR>",
+  { desc = "当前目录Diff", silent = true, noremap = true }
+)
+map(
+  "n",
+  "<leader>gp",
+  "<cmd>DiffviewFileHistory % --imply-local<CR>",
+  { desc = "当前文件历史", silent = true, noremap = true }
+)
+map(
+  "n",
+  "<leader>gP",
+  "<cmd>DiffviewFileHistory --imply-local<CR>",
+  { desc = "当前目录历史", silent = true, noremap = true }
+)
 -- map('v', '<leader>gl',':DiffviewFileHistory --imply-local<CR>',{desc = "选中行历史", silent = true, noremap = true})
-map('v', '<leader>gl', function() Snacks.picker.git_log_line() end ,{desc = "选中行历史", silent = true, noremap = true})
+map("v", "<leader>gl", function()
+  Snacks.picker.git_log_line()
+end, { desc = "选中行历史", silent = true, noremap = true })
 
-map("n", "<leader>si", '<cmd>Telescope hierarchy incoming_calls<cr>', { desc = "LSP Incoming Calls" })
-map("n", "<leader>so", '<cmd>Telescope hierarchy outgoing_calls<cr>', { desc = "LSP Outgoing Calls" })
+map("n", "<leader>si", function()
+  require("telescope").extensions.hierarchy.incoming_calls({
+    layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
+    layout_config = {
+      width = 0.9,
+      height = 0.9,
+      preview_height = 0.6, -- 增加代码预览窗口的高度比例
+      vertical = {
+        preview_cutoff = 0,
+      },
+    },
+  })
+end, { desc = "LSP Incoming Calls" })
+map("n", "<leader>so", function()
+  require("telescope").extensions.hierarchy.outgoing_calls({
+    layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
+    layout_config = {
+      width = 0.9,
+      height = 0.9,
+      preview_height = 0.6, -- 增加代码预览窗口的高度比例
+      vertical = {
+        preview_cutoff = 0,
+      },
+    },
+  })
+end, { desc = "LSP Outgoing Calls" })
