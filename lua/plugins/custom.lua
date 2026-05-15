@@ -180,7 +180,6 @@ return {
               preset = "vertical_custom",
             },
           },
-
         },
       },
       bigfile = {
@@ -234,5 +233,19 @@ return {
       require("telescope").setup(opts)
       require("telescope").load_extension("hierarchy")
     end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      -- 覆盖 LazyVim 的默认诊断设置
+      diagnostics = {
+        -- 1. 关闭原先在行尾显示的单行虚拟文本
+        virtual_text = false,
+        -- 2. 开启下方虚拟行显示
+        virtual_lines = {
+          only_current_line = true, -- 极其重要：只在当前光标行显示，避免全屏代码被频繁撑开跳动
+        },
+      },
+    },
   },
 }
