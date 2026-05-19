@@ -76,6 +76,11 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
+        formatters = {
+          file = {
+            filename_only = true, -- 关键设置：只显示文件名
+          },
+        },
         layouts = {
           vertical_custom = {
             layout = {
