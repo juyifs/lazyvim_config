@@ -6,6 +6,7 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
+local wk = require("which-key")
 
 -- copy/paste/cut/delete
 map("", "<C-v>", '"+p')
@@ -62,7 +63,13 @@ map("v", "<leader>gl", function()
   Snacks.picker.git_log_line()
 end, { desc = "选中行历史", silent = true, noremap = true })
 
-map("n", "<leader>si", function()
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grt')
+vim.keymap.del('n', 'grx')
+map("n", "gr", function()
   require("telescope").extensions.hierarchy.incoming_calls({
     layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
     layout_config = {
@@ -74,8 +81,9 @@ map("n", "<leader>si", function()
       },
     },
   })
-end, { desc = "LSP Incoming Calls" })
-map("n", "<leader>so", function()
+end, { desc = "LSP Incoming Calls", silent = true, noremap = true })
+
+map("n", "gR", function()
   require("telescope").extensions.hierarchy.outgoing_calls({
     layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
     layout_config = {
@@ -87,4 +95,51 @@ map("n", "<leader>so", function()
       },
     },
   })
-end, { desc = "LSP Outgoing Calls" })
+end, { desc = "LSP Outgoing Calls", silent = true, noremap = true })
+
+-- 封装一个动态获取当前文件类型图标的函数
+local function get_lang_icon()
+  -- 获取当前缓冲区的 filetype
+  local ft = vim.bo.filetype
+  -- 如果你使用的是 mini.icons (LazyVim默认)
+  local has_mini, mini = pcall(require, "mini.icons")
+  if has_mini then
+    local icon, hl, _ = mini.get("filetype", ft)
+    return { icon = icon, hl = hl }
+  end
+
+  -- 尝试使用 nvim-web-devicons
+  local has_devicons, devicons = pcall(require, "nvim-web-devicons")
+  if has_devicons then
+    local icon, color = devicons.get_icon_by_filetype(ft, { default = true })
+    return { icon = icon, color = color } -- 返回文本图标和对应高亮色
+  end
+
+  -- 兜底默认图标
+  return { icon = " ", color = "blue" }
+end
+
+wk.add({
+  {
+    "gr",
+    icon = function()
+      return get_lang_icon() -- 动态获取当前文件类型图标
+    end, -- 针对单个快捷键
+  },
+  {
+    "gR",
+    icon = function()
+      return get_lang_icon() -- 动态获取当前文件类型图标
+    end, -- 针对单个快捷键
+  },
+  {
+    "<leader>m",
+    group = "BookMark",
+    icon = { icon = "󰸕 ", color = "green" }, -- 针对快捷键组
+  },
+  {
+    "<leader>a",
+    group = "Avante",
+    icon = { icon = "󰁤 ", color = "orange" }, -- 针对快捷键组
+  },
+})

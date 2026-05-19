@@ -242,4 +242,17 @@ return {
       },
     },
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        ["*"] = {
+        -- stylua: ignore
+        keys = {
+          { "gr", false },
+        },
+        },
+      },
+    },
+  },
 }
