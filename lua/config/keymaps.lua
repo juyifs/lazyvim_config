@@ -84,18 +84,8 @@ map("n", "gr", function()
 end, { desc = "LSP Incoming Calls", silent = true, noremap = true })
 
 map("n", "gR", function()
-  require("telescope").extensions.hierarchy.outgoing_calls({
-    layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
-    layout_config = {
-      width = 0.9,
-      height = 0.9,
-      preview_height = 0.6, -- 增加代码预览窗口的高度比例
-      vertical = {
-        preview_cutoff = 0,
-      },
-    },
-  })
-end, { desc = "LSP Outgoing Calls", silent = true, noremap = true })
+	Snacks.picker.lsp_references()
+end, { desc = "LSP References", silent = true, noremap = true })
 
 -- 封装一个动态获取当前文件类型图标的函数
 local function get_lang_icon()
