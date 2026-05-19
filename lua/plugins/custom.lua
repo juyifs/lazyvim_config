@@ -76,6 +76,10 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
+        -- 全局设定打开时聚焦于列表
+        opts = {
+          focus = "list",
+        },
         formatters = {
           file = {
             filename_only = true, -- 关键设置：只显示文件名
@@ -257,6 +261,20 @@ return {
           { "gr", false },
         },
         },
+      },
+    },
+  },
+  {
+    "dhananjaylatkar/cscope_maps.nvim",
+    dependencies = {
+      "folke/snacks.nvim", -- 推荐配合 snacks 展现精美弹窗
+    },
+    opts = {
+      disable_maps = true, -- 如果设为 false，它会自动绑定一套极其好用的快捷键
+      skip_input_prompt = false,
+      cscope = {
+        exec = "gtags-cscope", -- 指定使用 GNU Global 提供的 cscope 接口
+        picker = "snacks", -- 查询结果用 snacks 弹窗展示（也可改为 "telescope"）
       },
     },
   },

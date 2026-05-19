@@ -13,3 +13,5 @@ vim.opt.softtabstop=4
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.o.winborder = "rounded"
+vim.o.tags = "./tags;,tags;"
+

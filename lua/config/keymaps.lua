@@ -87,6 +87,22 @@ map("n", "gR", function()
 	Snacks.picker.lsp_references()
 end, { desc = "LSP References", silent = true, noremap = true })
 
+-- 在光标下的符号上按下快捷键：
+-- <Leader>tc : 查找调用
+map('n', '<Leader>tc', ':Cs find c<CR>', { desc = 'Gtags查找调用', silent = true, noremap = true })
+
+-- <Leader>td : 查找定义
+map('n', '<Leader>td', ':Cs find g<CR>', { desc = 'Gtags查找定义', silent = true, noremap = true })
+
+-- <Leader>tr : 查找引用
+map('n', '<Leader>tr', ':Cs find s<CR>', { desc = 'Gtags查找引用', silent = true, noremap = true })
+
+-- <Leader>ti : 查找实例
+map('n', '<Leader>ti', ':Cs find t<CR>', { desc = 'Gtags查找实例', silent = true, noremap = true })
+
+-- <Leader>ts : 调用栈
+map('n', '<Leader>ts', ':CsStackView open down<CR>', { desc = 'Gtags调用栈', silent = true, noremap = true })
+
 -- 封装一个动态获取当前文件类型图标的函数
 local function get_lang_icon()
   -- 获取当前缓冲区的 filetype
@@ -125,11 +141,16 @@ wk.add({
   {
     "<leader>m",
     group = "BookMark",
-    icon = { icon = "󰸕 ", color = "green" }, -- 针对快捷键组
+    icon = { icon = "󰸕 ", color = "green" },
   },
   {
     "<leader>a",
     group = "Avante",
-    icon = { icon = "󰁤 ", color = "orange" }, -- 针对快捷键组
+    icon = { icon = "󰁤 ", color = "orange" },
+  },
+  {
+    "<leader>t",
+    group = "Tags",
+    icon = { icon = " ", color = "orange" },
   },
 })
