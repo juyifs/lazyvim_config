@@ -275,6 +275,11 @@ return {
       cscope = {
         exec = "gtags-cscope", -- 指定使用 GNU Global 提供的 cscope 接口
         picker = "snacks", -- 查询结果用 snacks 弹窗展示（也可改为 "telescope"）
+        skip_picker_for_single_result = true,
+      },
+      stack_view = {
+        tree_hl = true, -- toggle tree highlighting
+        size = "large", -- "medium" or "large" (large is 95% of screen)
       },
     },
   },
