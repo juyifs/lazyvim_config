@@ -69,7 +69,7 @@ vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'grt')
 vim.keymap.del('n', 'grx')
-map("n", "gr", function()
+map("n", "gR", function()
   require("telescope").extensions.hierarchy.incoming_calls({
     layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
     layout_config = {
@@ -83,7 +83,7 @@ map("n", "gr", function()
   })
 end, { desc = "LSP Incoming Calls", silent = true, noremap = true })
 
-map("n", "gR", function()
+map("n", "gr", function()
 	Snacks.picker.lsp_references()
 end, { desc = "LSP References", silent = true, noremap = true })
 
