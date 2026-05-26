@@ -48,13 +48,13 @@ map(
 )
 map(
   "n",
-  "<leader>gp",
+  "<leader>gP",
   "<cmd>DiffviewFileHistory % --imply-local<CR>",
   { desc = "当前文件历史", silent = true, noremap = true }
 )
 map(
   "n",
-  "<leader>gP",
+  "<leader>gp",
   "<cmd>DiffviewFileHistory --imply-local<CR>",
   { desc = "当前目录历史", silent = true, noremap = true }
 )

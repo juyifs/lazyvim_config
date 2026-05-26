@@ -215,6 +215,12 @@ return {
           height = 8, -- 变成底部面板后，建议使用 height 代替 width 控制高度
         },
       },
+      file_history_panel = {
+        win_config = { -- See |diffview-config-win_config|
+          position = "bottom",
+          height = 8,
+        },
+      },
     },
   },
   {
