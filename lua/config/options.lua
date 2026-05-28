@@ -15,3 +15,9 @@ vim.opt.smartindent = true
 vim.o.winborder = "rounded"
 vim.o.tags = "./tags;,tags;"
 
+vim.filetype.add({
+  extension = {
+    log = "log",
+  },
+})
+

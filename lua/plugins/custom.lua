@@ -77,8 +77,11 @@ return {
     opts = {
       picker = {
         -- 全局设定打开时聚焦于列表
-        opts = {
-          focus = "list",
+        focus = "list",
+        previewers = {
+          file = {
+            max_size = 20 * 1024 * 1024,
+          },
         },
         formatters = {
           file = {
@@ -194,6 +197,7 @@ return {
       bigfile = {
         size = 30 * 1024 * 1024,
       },
+      scroll = { enabled = false },
     },
   },
   {
@@ -282,6 +286,7 @@ return {
         exec = "gtags-cscope", -- 指定使用 GNU Global 提供的 cscope 接口
         picker = "snacks", -- 查询结果用 snacks 弹窗展示（也可改为 "telescope"）
         skip_picker_for_single_result = true,
+        db_build_cmd = { script = "default", args = { "-bqkv", "--gtagslabel=universal-ctags" } },
       },
       stack_view = {
         tree_hl = true, -- toggle tree highlighting
