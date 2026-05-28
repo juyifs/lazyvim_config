@@ -77,7 +77,6 @@ return {
     opts = {
       picker = {
         -- 全局设定打开时聚焦于列表
-        focus = "list",
         previewers = {
           file = {
             max_size = 20 * 1024 * 1024,
@@ -191,6 +190,12 @@ return {
               preview = "preview",
               preset = "vertical_custom",
             },
+          },
+          lsp_references = {
+            focus = "list",
+          },
+          grep_word = {
+            focus = "list",
           },
         },
       },
