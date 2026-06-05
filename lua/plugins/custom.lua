@@ -48,18 +48,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "jb",
+      colorscheme = "catppuccin-mocha",
     },
-  },
-  {
-    "nickkadutskyi/jb.nvim",
-    lazy = false,
-    priority = 1000, -- 确保优先加载
-    config = function()
-      vim.cmd("colorscheme jb") -- 默认开启
-      -- 如果需要透明背景，取消下一行的注释
-      -- require("jb").setup({ transparent = true })
-    end,
   },
   {
     "uga-rosa/translate.nvim",
