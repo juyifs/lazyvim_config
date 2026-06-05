@@ -305,4 +305,23 @@ return {
       require("guess-indent").setup({})
     end,
   },
+  {
+    "folke/trouble.nvim",
+    opts = {
+      modes = {
+        symbols = {
+          format = "{kind_icon} {text}", -- 只显示图标和名字
+          groups = {}, -- 移除文件名层级级
+
+          -- 核心：重新定义 Section 属性，将顶层标题 title 设为 false
+          sections = {
+            {
+              mode = "symbols",
+              title = false,
+            },
+          },
+        },
+      },
+    },
+  },
 }
