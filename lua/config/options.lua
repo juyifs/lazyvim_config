@@ -11,7 +11,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = false
 vim.opt.softtabstop=4
 vim.opt.autoindent = true
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 vim.o.winborder = "rounded"
 vim.o.tags = "./tags;,tags;"
 
@@ -20,4 +20,6 @@ vim.filetype.add({
     log = "log",
   },
 })
+
+vim.g.root_spec = { "cwd" }
 
