@@ -48,7 +48,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-mocha",
+      colorscheme = "tokyonight-moon",
     },
   },
   {
@@ -313,5 +313,15 @@ return {
         },
       },
     },
+  },
+  {
+    "soulis-1256/eagle.nvim",
+    opts = {
+      keyboard_mode = true,
+    },
+    config = function(_, opts)
+      require("eagle").setup(opts)
+      vim.o.mousemoveevent = true
+    end,
   },
 }
