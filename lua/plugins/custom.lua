@@ -192,7 +192,7 @@ return {
       bigfile = {
         size = 30 * 1024 * 1024,
       },
-      scroll = { enabled = false },
+      scroll = { enabled = true },
     },
   },
   {
