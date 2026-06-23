@@ -83,25 +83,70 @@ map("n", "gR", function()
   })
 end, { desc = "LSP Incoming Calls", silent = true, noremap = true })
 
-map("n", "gr", function()
-	Snacks.picker.lsp_references()
-end, { desc = "LSP References", silent = true, noremap = true })
+local function has_lsp_locations(results)
+  for _, res in pairs(results or {}) do
+    local result = res.result
+    if result then
+      if vim.tbl_islist(result) then
+        if #result > 0 then
+          return true
+        end
+      else
+        return true
+      end
+    end
+  end
+  return false
+end
 
--- 在光标下的符号上按下快捷键：
--- <Leader>tc : 查找调用
-map('n', '<Leader>tc', ':Cs find c<CR>', { desc = 'Gtags查找调用', silent = true, noremap = true })
+local function goto_references_or_ctags()
+  local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/references" })
+  local position_encoding = (clients[1] and clients[1].offset_encoding) or "utf-16"
+  local params = vim.lsp.util.make_position_params(0, position_encoding)
+  params.context = { includeDeclaration = true }
 
--- <Leader>td : 查找定义
-map('n', '<Leader>td', ':Cs find g<CR>', { desc = 'Gtags查找定义', silent = true, noremap = true })
+  vim.lsp.buf_request_all(0, "textDocument/references", params, function(results)
+    if has_lsp_locations(results) then
+      Snacks.picker.lsp_references()
+    else
+      vim.cmd("Cs find s")
+    end
+  end)
+end
 
--- <Leader>tr : 查找引用
-map('n', '<Leader>tr', ':Cs find s<CR>', { desc = 'Gtags查找引用', silent = true, noremap = true })
+map("n", "gr", goto_references_or_ctags, { desc = "LSP References / Gtags Fallback", silent = true, noremap = true })
 
--- <Leader>ti : 查找实例
-map('n', '<Leader>ti', ':Cs find t<CR>', { desc = 'Gtags查找实例', silent = true, noremap = true })
+local function goto_implementation_or_ctags()
+  local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/implementation" })
+  local position_encoding = (clients[1] and clients[1].offset_encoding) or "utf-16"
+  local params = vim.lsp.util.make_position_params(0, position_encoding)
 
--- <Leader>ts : 调用栈
-map('n', '<Leader>ts', ':CsStackView open down<CR>', { desc = 'Gtags调用栈', silent = true, noremap = true })
+  vim.lsp.buf_request_all(0, "textDocument/implementation", params, function(results)
+    if has_lsp_locations(results) then
+      Snacks.picker.lsp_implementations()
+    else
+      vim.cmd("Cs find t")
+    end
+  end)
+end
+
+map("n", "gI", goto_implementation_or_ctags, { desc = "LSP Implementation / Gtags Fallback", silent = true, noremap = true })
+
+local function goto_definition_or_ctags()
+  local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/definition" })
+  local position_encoding = (clients[1] and clients[1].offset_encoding) or "utf-16"
+  local params = vim.lsp.util.make_position_params(0, position_encoding)
+
+  vim.lsp.buf_request_all(0, "textDocument/definition", params, function(results)
+    if has_lsp_locations(results) then
+      Snacks.picker.lsp_definitions()
+    else
+      vim.cmd("Cs find g")
+    end
+  end)
+end
+
+map("n", "gd", goto_definition_or_ctags, { desc = "LSP Definition / Gtags Fallback", silent = true, noremap = true })
 
 -- 封装一个动态获取当前文件类型图标的函数
 local function get_lang_icon()
@@ -133,6 +178,18 @@ wk.add({
     end, -- 针对单个快捷键
   },
   {
+    "gd",
+    icon = function()
+      return get_lang_icon() -- 动态获取当前文件类型图标
+    end, -- 针对单个快捷键
+  },
+  {
+    "gI",
+    icon = function()
+      return get_lang_icon() -- 动态获取当前文件类型图标
+    end, -- 针对单个快捷键
+  },
+  {
     "gR",
     icon = function()
       return get_lang_icon() -- 动态获取当前文件类型图标
@@ -147,10 +204,5 @@ wk.add({
     "<leader>a",
     group = "Avante",
     icon = { icon = "󰁤 ", color = "orange" },
-  },
-  {
-    "<leader>t",
-    group = "Tags",
-    icon = { icon = " ", color = "orange" },
   },
 })

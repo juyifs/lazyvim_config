@@ -264,6 +264,8 @@ return {
         -- stylua: ignore
         keys = {
           { "gr", false },
+          { "gd", false },
+          { "gI", false },
         },
         },
       },
