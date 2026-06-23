@@ -83,19 +83,65 @@ map("n", "gR", function()
   })
 end, { desc = "LSP Incoming Calls", silent = true, noremap = true })
 
-local function has_lsp_locations(results)
+local function get_location_uri_and_range(item)
+  if item.uri and item.range then
+    return item.uri, item.range
+  end
+
+  if item.targetUri then
+    local range = item.targetSelectionRange or item.targetRange
+    if range then
+      return item.targetUri, range
+    end
+  end
+
+  return nil, nil
+end
+
+local function is_current_location(uri, range, current_file, cursor_line)
+  local file = vim.fs.normalize(vim.uri_to_fname(uri))
+  if file ~= current_file then
+    return false
+  end
+
+  if not range or not range.start then
+    return false
+  end
+
+  local start_line = range.start.line + 1
+  if start_line == cursor_line then
+    return true
+  end
+
+  if not range["end"] then
+    return false
+  end
+
+  local end_line = range["end"].line + 1
+  return start_line <= cursor_line and end_line >= cursor_line
+end
+
+local function has_lsp_locations(results, include_current)
+  local current_file = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
+  local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+
   for _, res in pairs(results or {}) do
     local result = res.result
     if result then
-      if vim.tbl_islist(result) then
-        if #result > 0 then
+      local list = vim.tbl_islist(result) and result or { result }
+      for _, item in ipairs(list) do
+        local uri, range = get_location_uri_and_range(item)
+        if uri then
+          if include_current or not is_current_location(uri, range, current_file, cursor_line) then
+            return true
+          end
+        else
           return true
         end
-      else
-        return true
       end
     end
   end
+
   return false
 end
 
