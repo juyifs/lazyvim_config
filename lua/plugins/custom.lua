@@ -316,4 +316,22 @@ return {
       },
     },
   },
+  {
+    "RaafatTurki/hex.nvim",
+    config = function()
+      require("hex").setup()
+    end,
+  },
+  {
+    "yetone/avante.nvim",
+    opts = {
+      provider = "copilot",
+      providers = {
+        copilot = {
+          model = "gpt-5.3-codex", -- 在这里指定你想要的 Copilot 模型
+          -- 也可以更换为 "gpt-4o", "o1-mini" 等 Copilot 官方支持的模型
+        },
+      },
+    },
+  },
 }
