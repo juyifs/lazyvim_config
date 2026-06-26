@@ -37,3 +37,6 @@ vim.g.clipboard = {
 
 vim.cmd('aunmenu PopUp')
 vim.cmd('autocmd! nvim.popupmenu')
+
+vim.opt.fixendofline = false  -- 关闭自动修复文件末尾换行符
+vim.opt.endofline = false     -- 不在文件末尾强制添加换行符

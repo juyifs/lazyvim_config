@@ -121,9 +121,10 @@ local function is_current_location(uri, range, current_file, cursor_line)
   return start_line <= cursor_line and end_line >= cursor_line
 end
 
-local function has_lsp_locations(results, include_current)
+local function count_lsp_locations(results, include_current)
   local current_file = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
   local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+  local count = 0
 
   for _, res in pairs(results or {}) do
     local result = res.result
@@ -133,16 +134,87 @@ local function has_lsp_locations(results, include_current)
         local uri, range = get_location_uri_and_range(item)
         if uri then
           if include_current or not is_current_location(uri, range, current_file, cursor_line) then
-            return true
+            count = count + 1
           end
         else
-          return true
+          count = count + 1
         end
       end
     end
   end
 
-  return false
+  return count
+end
+
+local function get_ctags_result_count(find_type)
+  local query = vim.fn.expand("<cword>")
+  if not query or query == "" then
+    return 0
+  end
+
+  local find_type_to_code = {
+    s = "0", -- find this C symbol
+    g = "1", -- find this definition
+    d = "2", -- find functions called by this function
+    c = "3", -- find functions calling this function
+    t = "4", -- find this text string
+    e = "6", -- find this egrep pattern
+    f = "7", -- find this file
+    i = "8", -- find files #including this file
+    a = "9", -- find assignments to this symbol
+  }
+
+  local code = find_type_to_code[find_type]
+  if not code then
+    return 0
+  end
+
+  local cscope_exec = "gtags-cscope"
+  if vim.fn.executable(cscope_exec) == 0 then
+    cscope_exec = "cscope"
+  end
+
+  if vim.fn.executable(cscope_exec) == 0 then
+    return 0
+  end
+
+  local cmd = string.format("%s -dL -%s %s", cscope_exec, code, vim.fn.shellescape(query))
+  local output = vim.fn.systemlist(cmd)
+
+  if vim.v.shell_error ~= 0 then
+    return 0
+  end
+
+  local count = 0
+  for _, line in ipairs(output) do
+    if line ~= "" then
+      count = count + 1
+    end
+  end
+
+  return count
+end
+
+local function should_use_ctags(lsp_count, find_type)
+  if lsp_count == 0 then
+    return true
+  end
+
+  local ctags_count = get_ctags_result_count(find_type)
+  return ctags_count > lsp_count
+end
+
+local function lsp_location_count(results, include_current)
+  return count_lsp_locations(results, include_current)
+end
+
+local function use_lsp_or_ctags(results, lsp_handler, ctags_find_type)
+  local lsp_count = lsp_location_count(results)
+  if not should_use_ctags(lsp_count, ctags_find_type) and lsp_count > 0 then
+    lsp_handler()
+  else
+    vim.cmd(string.format("Cs find %s", ctags_find_type))
+  end
 end
 
 local function goto_references_or_ctags()
@@ -152,11 +224,7 @@ local function goto_references_or_ctags()
   params.context = { includeDeclaration = true }
 
   vim.lsp.buf_request_all(0, "textDocument/references", params, function(results)
-    if has_lsp_locations(results) then
-      Snacks.picker.lsp_references()
-    else
-      vim.cmd("Cs find s")
-    end
+    use_lsp_or_ctags(results, Snacks.picker.lsp_references, "s")
   end)
 end
 
@@ -168,11 +236,7 @@ local function goto_implementation_or_ctags()
   local params = vim.lsp.util.make_position_params(0, position_encoding)
 
   vim.lsp.buf_request_all(0, "textDocument/implementation", params, function(results)
-    if has_lsp_locations(results) then
-      Snacks.picker.lsp_implementations()
-    else
-      vim.cmd("Cs find t")
-    end
+    use_lsp_or_ctags(results, Snacks.picker.lsp_implementations, "t")
   end)
 end
 
@@ -184,11 +248,7 @@ local function goto_definition_or_ctags()
   local params = vim.lsp.util.make_position_params(0, position_encoding)
 
   vim.lsp.buf_request_all(0, "textDocument/definition", params, function(results)
-    if has_lsp_locations(results) then
-      Snacks.picker.lsp_definitions()
-    else
-      vim.cmd("Cs find g")
-    end
+    use_lsp_or_ctags(results, Snacks.picker.lsp_definitions, "g")
   end)
 end
 
