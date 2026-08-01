@@ -63,12 +63,12 @@ map("v", "<leader>gl", function()
   Snacks.picker.git_log_line()
 end, { desc = "选中行历史", silent = true, noremap = true })
 
-vim.keymap.del('n', 'gra')
-vim.keymap.del('n', 'grn')
-vim.keymap.del('n', 'grr')
-vim.keymap.del('n', 'gri')
-vim.keymap.del('n', 'grt')
-vim.keymap.del('n', 'grx')
+vim.keymap.del("n", "gra")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grt")
+vim.keymap.del("n", "grx")
 map("n", "gR", function()
   require("telescope").extensions.hierarchy.incoming_calls({
     layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
@@ -245,7 +245,12 @@ local function goto_implementation_or_ctags()
   end)
 end
 
-map("n", "gI", goto_implementation_or_ctags, { desc = "LSP Implementation / Gtags Fallback", silent = true, noremap = true })
+map(
+  "n",
+  "gI",
+  goto_implementation_or_ctags,
+  { desc = "LSP Implementation / Gtags Fallback", silent = true, noremap = true }
+)
 
 local function goto_definition_or_ctags()
   local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/definition" })
@@ -258,6 +263,12 @@ local function goto_definition_or_ctags()
 end
 
 map("n", "gd", goto_definition_or_ctags, { desc = "LSP Definition / Gtags Fallback", silent = true, noremap = true })
+
+map("n", "<leader>sB", function()
+  Snacks.picker.grep_word({
+    buffers = true, -- 关键：限制只在当前打开的 buffer 中搜索，不搜索整个项目
+  })
+end, { desc = "Grep word in buffer" })
 
 -- 封装一个动态获取当前文件类型图标的函数
 local function get_lang_icon()
@@ -310,10 +321,5 @@ wk.add({
     "<leader>m",
     group = "BookMark",
     icon = { icon = "󰸕 ", color = "green" },
-  },
-  {
-    "<leader>a",
-    group = "Avante",
-    icon = { icon = "󰁤 ", color = "orange" },
   },
 })

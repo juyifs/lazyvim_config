@@ -316,16 +316,4 @@ return {
       },
     },
   },
-  {
-    "yetone/avante.nvim",
-    opts = {
-      provider = "copilot",
-      providers = {
-        copilot = {
-          model = "claude-sonnet-5", -- 在这里指定你想要的 Copilot 模型
-          -- 也可以更换为 "gpt-4o", "o1-mini" 等 Copilot 官方支持的模型
-        },
-      },
-    },
-  },
 }
