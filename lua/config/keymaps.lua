@@ -196,12 +196,8 @@ local function get_ctags_result_count(find_type)
 end
 
 local function should_use_ctags(lsp_count, find_type)
-  if lsp_count == 0 then
-    return true
-  end
-
   local project_root = vim.fs.root(0, { ".git" }) or vim.loop.cwd()
-  local compiler_command_file = project_root and (project_root .. "/compiler_command.json") or nil
+  local compiler_command_file = project_root and (project_root .. "/compile_commands.json") or nil
 
   if not compiler_command_file or vim.fn.filereadable(compiler_command_file) == 0 then
     return true

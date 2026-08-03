@@ -48,7 +48,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-nvim",
+      colorscheme = "vscode",
     },
   },
   {
@@ -316,4 +316,5 @@ return {
       },
     },
   },
+  {'Mofiqul/vscode.nvim'},
 }
