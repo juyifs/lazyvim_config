@@ -42,13 +42,14 @@ return {
         -- 设置最大文件名长度（设为足够大的值）
         max_name_length = 50,
         always_show_bufferline = true,
+        diagnostics = false,
       },
     },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "vscode",
+      colorscheme = "onedark",
     },
   },
   {
@@ -316,5 +317,7 @@ return {
       },
     },
   },
-  {'Mofiqul/vscode.nvim'},
+  {
+    "navarasu/onedark.nvim",
+  },
 }
