@@ -11,7 +11,8 @@ local group = vim.api.nvim_create_augroup("CscopeBuild", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { "*.c", "*.h", "*.cpp", "*.cc", "*.hpp", "*.java" },
   callback = function ()
-	vim.fn.system("find . -type f -name '*.[ch]' -o -name '*.[ch]pp' -o -name '*.cc' -o -name '*.java' > gtags.files")
+    vim.fn.system("rm GPATH GRTAGS GTAGS gtags.files")
+    vim.fn.system("find . -type f -name '*.[ch]' -o -name '*.[ch]pp' -o -name '*.cc' -o -name '*.java' > gtags.files")
     vim.cmd("Cscope db build")
   end,
   group = group,
