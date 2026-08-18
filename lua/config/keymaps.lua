@@ -198,11 +198,18 @@ end
 local function should_use_ctags(lsp_count, find_type)
   local project_root = vim.fs.root(0, { ".git" }) or vim.loop.cwd()
   local compiler_command_file = project_root and (project_root .. "/compile_commands.json") or nil
+  local classpath_file = project_root and (project_root .. "/.classpath") or nil
 
-  if not compiler_command_file or vim.fn.filereadable(compiler_command_file) == 0 then
+  -- 检查 compile_commands.json 是否存在
+  local has_compiler_cmd = compiler_command_file and vim.fn.filereadable(compiler_command_file) == 1
+  -- 检查 .classpath 是否存在
+  local has_classpath = classpath_file and vim.fn.filereadable(classpath_file) == 1
+
+  if has_compiler_cmd or has_classpath then
+    return false
+  else
     return true
   end
-  return false
 end
 
 local function lsp_location_count(results, include_current)

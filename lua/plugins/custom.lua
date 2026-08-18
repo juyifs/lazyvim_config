@@ -320,4 +320,8 @@ return {
   {
     "navarasu/onedark.nvim",
   },
+  {
+    "Exafunction/windsurf.vim",
+    event = "BufEnter",
+  },
 }
