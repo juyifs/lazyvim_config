@@ -7,13 +7,13 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
-local group = vim.api.nvim_create_augroup("CscopeBuild", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*.c", "*.h", "*.cpp", "*.cc", "*.hpp", "*.java" },
-  callback = function ()
-    vim.fn.system("rm GPATH GRTAGS GTAGS gtags.files")
-    vim.fn.system("find . -type f -name '*.[ch]' -o -name '*.[ch]pp' -o -name '*.cc' -o -name '*.java' > gtags.files")
-    vim.cmd("Cscope db build")
-  end,
-  group = group,
-})
+-- local group = vim.api.nvim_create_augroup("CscopeBuild", { clear = true })
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   pattern = { "*.c", "*.h", "*.cpp", "*.cc", "*.hpp", "*.java" },
+--   callback = function ()
+--     vim.fn.system("rm GPATH GRTAGS GTAGS gtags.files")
+--     vim.fn.system("find . -type f -name '*.[ch]' -o -name '*.[ch]pp' -o -name '*.cc' -o -name '*.java' > gtags.files")
+--     vim.cmd("Cscope db build")
+--   end,
+--   group = group,
+-- })

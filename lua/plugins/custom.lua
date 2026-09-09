@@ -75,7 +75,7 @@ return {
         },
         formatters = {
           file = {
-            filename_only = true, -- 关键设置：只显示文件名
+            -- filename_only = true, -- 关键设置：只显示文件名
           },
         },
         layouts = {
