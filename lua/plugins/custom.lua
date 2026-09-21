@@ -82,9 +82,9 @@ return {
           vertical_custom = {
             layout = {
               box = "vertical",
-              width = 0.9,
+              width = 0.99,
               min_width = 120,
-              height = 0.9,
+              height = 0.99,
               { win = "preview", title = "{preview}", border = true, height = 0.7 },
               {
                 box = "vertical",
@@ -98,9 +98,9 @@ return {
           horizontal_custom = {
             layout = {
               box = "horizontal",
-              width = 0.9,
+              width = 0.99,
               min_width = 120,
-              height = 0.9,
+              height = 0.99,
               {
                 box = "vertical",
                 border = true,
@@ -114,6 +114,7 @@ return {
         },
         layout = {
           preset = "horizontal_custom",
+          cycle = false,
         },
         sources = {
           lines = {
