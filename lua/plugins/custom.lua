@@ -235,22 +235,6 @@ return {
     },
   },
   {
-    "jmacadie/telescope-hierarchy.nvim",
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-      },
-    },
-    config = function(_, opts)
-      -- Calling telescope's setup from multiple specs does not hurt, it will happily merge the
-      -- configs for us. We won't use data, as everything is in it's own namespace (telescope
-      -- defaults, as well as each extension).
-      require("telescope").setup(opts)
-      require("telescope").load_extension("hierarchy")
-    end,
-  },
-  {
     "folke/noice.nvim",
     opts = {
       presets = {
@@ -270,6 +254,7 @@ return {
           { "gI", false },
         },
         },
+        clangd = { enabled = false },
       },
     },
   },
@@ -324,5 +309,19 @@ return {
   {
     "Exafunction/windsurf.vim",
     event = "BufEnter",
+  },
+  {
+    "ranjithshegde/ccls.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      -- 插件会自动帮你初始化 lspconfig 中的 ccls
+      require("ccls").setup({
+        lsp = {
+          server = {
+            cmd = { "/home/linuxbrew/.linuxbrew/bin/ccls" },
+          },
+        },
+      })
+    end,
   },
 }

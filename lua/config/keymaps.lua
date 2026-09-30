@@ -69,19 +69,7 @@ vim.keymap.del("n", "grr")
 vim.keymap.del("n", "gri")
 vim.keymap.del("n", "grt")
 vim.keymap.del("n", "grx")
-map("n", "gR", function()
-  require("telescope").extensions.hierarchy.incoming_calls({
-    layout_strategy = "vertical", -- 可选 horizontal, vertical, center, cursor
-    layout_config = {
-      width = 0.9,
-      height = 0.9,
-      preview_height = 0.6, -- 增加代码预览窗口的高度比例
-      vertical = {
-        preview_cutoff = 0,
-      },
-    },
-  })
-end, { desc = "LSP Incoming Calls", silent = true, noremap = true })
+map("n", "gR", "<cmd>CclsIncomingCallsHierarchy float<CR>", { desc = "LSP Incoming Calls", silent = true, noremap = true })
 
 local function get_location_uri_and_range(item)
   if item.uri and item.range then
@@ -202,6 +190,10 @@ local function should_use_ctags(lsp_count, find_type)
 
   -- 检查 compile_commands.json 是否存在
   local has_compiler_cmd = compiler_command_file and vim.fn.filereadable(compiler_command_file) == 1
+  if not has_compiler_cmd then
+    compiler_command_file = project_root and (project_root .. "/.ccls") or nil
+    has_compiler_cmd = compiler_command_file and vim.fn.filereadable(compiler_command_file) == 1
+  end
   -- 检查 .classpath 是否存在
   local has_classpath = classpath_file and vim.fn.filereadable(classpath_file) == 1
 
