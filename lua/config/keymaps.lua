@@ -265,6 +265,8 @@ map("n", "<leader>sB", function()
   })
 end, { desc = "Grep word in buffer" })
 
+map("n", "<leader>ch", "<cmd>LspCclsSwitchSourceHeader<CR>", { desc = "Switch Source/Header", silent = true, noremap = true })
+
 -- 封装一个动态获取当前文件类型图标的函数
 local function get_lang_icon()
   -- 获取当前缓冲区的 filetype
