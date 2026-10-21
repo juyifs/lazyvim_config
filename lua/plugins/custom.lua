@@ -1,3 +1,10 @@
+-- snacks grep：隐藏列表中的匹配行内容，只保留 文件名:行:列（内容看 preview）
+local function grep_no_line_format(item, picker)
+  local copy = vim.tbl_extend("force", {}, item)
+  copy.line = nil
+  return require("snacks.picker.format").file(copy, picker)
+end
+
 return {
   {
     "Mr-LLLLL/interestingwords.nvim",
@@ -117,17 +124,53 @@ return {
           cycle = false,
         },
         sources = {
+          lsp_symbols = {
+            -- 平铺显示，像 helix 一样在符号名前带上完整类路径
+            tree = true,
+            format = function(item, picker)
+              local ret = require("snacks.picker.format").lsp_symbol(item, picker)
+              local parts = {}
+              local p = item.parent
+              while p and p.name do
+                table.insert(parts, 1, vim.trim(p.name:gsub("\r?\n", " ")))
+                p = p.parent
+              end
+              if #parts > 0 then
+                -- 从后往前找最后一个文本项（即符号名），在其前插入类路径
+                for i = #ret, 1, -1 do
+                  if type(ret[i][1]) == "string" and ret[i][1]:match("%S") then
+                    table.insert(ret, i, { table.concat(parts, "::") .. "::", "Comment" })
+                    break
+                  end
+                end
+              end
+              return ret
+            end,
+          },
           lines = {
             layout = {
               preview = "preview",
               preset = "horizontal_custom",
             },
           },
+          grep = {
+            format = grep_no_line_format,
+          },
+          grep_word = {
+            focus = "list",
+            format = grep_no_line_format,
+          },
+          grep_buffers = {
+            format = grep_no_line_format,
+          },
           files = {
             layout = {
               preview = "preview",
               preset = "horizontal_custom",
             },
+          },
+          grep_line = {
+            format = grep_no_line_format,
           },
           qflist = {
             layout = {
@@ -185,9 +228,7 @@ return {
           },
           lsp_references = {
             focus = "list",
-          },
-          grep_word = {
-            focus = "list",
+            format = grep_no_line_format,
           },
         },
       },

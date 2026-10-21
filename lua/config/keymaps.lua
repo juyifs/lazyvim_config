@@ -70,6 +70,7 @@ vim.keymap.del("n", "gri")
 vim.keymap.del("n", "grt")
 vim.keymap.del("n", "grx")
 map("n", "gR", "<cmd>CclsIncomingCallsHierarchy float<CR>", { desc = "LSP Incoming Calls", silent = true, noremap = true })
+map("n", "gi", "<cmd>CclsDerivedHierarchy float<CR>", { desc = "LSP Derived", silent = true, noremap = true })
 
 local function get_location_uri_and_range(item)
   if item.uri and item.range then
